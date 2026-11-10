@@ -1,20 +1,18 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>bon stage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,900,100,1&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+/* Layout: one butter-yellow "digest" sheet inside a rust frame; role tabs on top,
+   filter pills, then cards. Single deliberate light look (retro 70s reference). */
 :root{
+  color-scheme: light;
   --rust:#7b2d1a;
-  --rust-2:#9a3a22;
   --cream:#f6efe2;
   --paper:#fbf7ee;
-  --tomato:#e8552b;
+  --tomato:#e04e24;
   --tomato-soft:#f6c7b4;
   --sky:#c3d7ec;
   --sky-ink:#2f5d8a;
@@ -24,381 +22,400 @@
   --ink:#2a1a14;
   --ink-soft:#6b5348;
   --line:#e2d6c3;
-  --serif:"Instrument Serif", Georgia, serif;
-  --sans:"DM Sans", system-ui, sans-serif;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --logo:"Fraunces", Georgia, serif;
-  --hand:"Caveat", cursive;
+  --hand:"Caveat", "Comic Sans MS", cursive;
 }
 *{box-sizing:border-box}
-html,body{margin:0}
-body{background:var(--rust);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--rust);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;margin:0}
 a{color:inherit}
-.frame{max-width:1180px;margin:0 auto;padding:18px 16px 40px}
-.page{background:var(--cream);border-radius:4px;overflow:hidden}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sky-ink);outline-offset:2px}
 
-/* test banner */
-.testbar{background:var(--ink);color:var(--butter);text-align:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px}
+.frame{max-width:1180px;margin:0 auto;padding-block:16px 32px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 
-/* nav */
-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 22px;background:var(--rust);color:var(--cream);font-size:12px;letter-spacing:.02em;flex-wrap:wrap}
-nav .links{display:flex;gap:18px;flex-wrap:wrap}
-nav a{text-decoration:none;opacity:.9}
-nav a:hover{opacity:1;text-decoration:underline}
+/* top bar */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;color:var(--cream);padding:4px 4px 16px}
+.logo{font-family:var(--logo);font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1;color:var(--butter);font-size:clamp(34px,5vw,48px);line-height:.85;letter-spacing:-.02em;margin:0}
+.logo small{display:block;font-family:var(--hand);font-weight:500;font-size:20px;letter-spacing:0;color:var(--cream);margin-top:6px;font-variation-settings:normal}
+.status{font-size:12px;letter-spacing:.04em;text-align:right;opacity:.92}
+.status b{font-weight:700}
 
-/* hero */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:430px;border-bottom:2px solid var(--rust)}
-.hero-art{background:var(--butter);position:relative;overflow:hidden}
-.hero-art svg{width:100%;height:100%;display:block}
-.hero-copy{position:relative;padding:40px 44px 44px;
-  background:repeating-linear-gradient(90deg,var(--sky) 0 22px,var(--paper) 22px 44px)}
-.hero-copy .inner{background:transparent}
-.logo{font-family:var(--logo);font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1;color:var(--tomato);font-size:clamp(46px,6vw,74px);line-height:.82;letter-spacing:-.02em;margin:0 0 26px}
-.script{font-family:var(--hand);font-size:24px;color:var(--ink);margin:0 0 4px}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.04;margin:0 0 16px;max-width:15ch;background:var(--paper);display:inline;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 6px}
-.hero p.lede{font-size:14px;max-width:40ch;margin:18px 0 22px;background:var(--paper);padding:8px 10px;border-radius:6px}
-.btn{display:inline-block;background:var(--tomato);color:#fff;border:0;border-radius:999px;padding:9px 22px;font:500 12px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn.sky{background:var(--sky);color:var(--sky-ink)}
-.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.badge{position:absolute;right:26px;top:26px;width:112px;height:112px;animation:spin 22s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.badge,.ticker-track{animation:none!important}}
+/* digest sheet */
+.sheet{background:var(--butter);border-radius:36px;padding:28px 22px 36px}
+.summary{display:flex;align-items:center;justify-content:center;gap:10px 14px;flex-wrap:wrap;margin:0 auto 18px;text-align:center}
+.summary h1{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.05;margin:0;text-wrap:balance}
+.summary .chip-label{background:var(--sky);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px}
 
-/* ticker */
-.ticker{overflow:hidden;border-bottom:2px solid var(--rust);background:var(--cream);color:var(--rust);font-size:12px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.ticker-track{display:inline-flex;gap:30px;padding:10px 0;animation:marquee 38s linear infinite}
-.ticker-track span{display:inline-flex;align-items:center;gap:30px}
-.ticker-track b{color:var(--tomato);font-size:16px;line-height:0}
-@keyframes marquee{to{transform:translateX(-50%)}}
+/* role tabs */
+.tabs-wrap{overflow-x:auto;margin:0 -6px 18px;padding:0 6px 4px;scrollbar-width:none}
+.tabs-wrap::-webkit-scrollbar{display:none}
+.tabs{display:flex;gap:8px;justify-content:center;min-width:max-content;margin:0 auto}
+.tab{border:0;background:var(--paper);border-radius:999px;padding:10px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:14px;transition:transform .15s}
+.tab:hover{transform:translateY(-1px)}
+.tab .n{font-size:11px;background:var(--cream);border-radius:99px;padding:1px 7px;font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{background:var(--tomato);color:#fff}
+.tab[aria-selected="true"] .n{background:rgba(255,255,255,.25)}
+.tab.tracker{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.tab.tracker[aria-selected="true"]{background:var(--ink);color:var(--butter);box-shadow:none}
+.role-blurb{text-align:center;font-family:var(--hand);font-size:22px;color:var(--rust);margin:-6px 0 14px}
 
-/* intro */
-.intro{text-align:center;padding:64px 22px 24px}
-.intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.3vw,40px);line-height:1.12;max-width:24ch;margin:0 auto}
-.sticker{display:inline-grid;place-items:center;width:1.25em;height:1.25em;border-radius:40% 55% 45% 60%;vertical-align:-.18em;margin:0 .12em;transform:rotate(-8deg)}
-.sticker svg{width:68%;height:68%}
-.st-sky{background:var(--sky)} .st-tom{background:var(--tomato)} .st-but{background:var(--butter)} .st-mint{background:var(--mint)}
-
-/* dashed digest box */
-.callout-wrap{position:relative;max-width:640px;margin:34px auto 70px;padding:0 16px}
-.callout{border:2px dashed var(--tomato);border-radius:16px;padding:30px 26px;text-align:center;background:var(--cream);position:relative;z-index:1}
-.chip-label{display:inline-block;background:var(--sky);color:var(--ink);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;margin-bottom:14px}
-.callout h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3vw,34px);line-height:1.1;margin:0 0 6px}
-.callout .meta{font-size:13px;color:var(--ink-soft);margin:0 0 18px}
-.arrow{position:absolute;top:-40px;width:150px;height:190px;color:var(--ink);pointer-events:none}
-.arrow.l{left:-120px}
-.arrow.r{right:-120px;transform:scaleX(-1)}
-
-/* digest section */
-.digest{background:var(--butter);border-radius:44px 44px 0 0;padding:52px 22px 60px}
-.sec-title{text-align:center;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 6px}
-.sec-sub{text-align:center;font-family:var(--hand);font-size:22px;margin:0 0 22px;color:var(--rust)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 28px;max-width:900px}
-.pill{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;font:500 12px/1.2 var(--sans);cursor:pointer}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:center;margin:0 auto 24px;max-width:960px}
+.fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fgroup > span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-right:2px}
+.pill{border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;line-height:1.2}
 .pill[aria-pressed="true"]{background:var(--ink);color:var(--butter)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1060px;margin:0 auto}
-.card{background:var(--paper);border-radius:22px;padding:24px 22px 22px;display:flex;flex-direction:column;gap:10px;position:relative}
-.card .ico{width:58px;height:58px;margin:0 auto 4px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1080px;margin:0 auto}
+.card{background:var(--paper);border-radius:22px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:9px;position:relative;min-width:0}
+.card.dim{opacity:.55}
+.card .ico{width:54px;height:54px;margin:0 auto 2px}
 .card .kicker{text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
-.card h4{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.05;text-align:center;margin:0}
-.card .company{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:-2px}
-.card .new{position:absolute;top:14px;right:14px;font-family:var(--hand);font-size:20px;color:var(--tomato);transform:rotate(8deg)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.05;text-align:center;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.card .company{text-align:center;font-size:13px;color:var(--ink-soft)}
+.card .new{position:absolute;top:12px;right:16px;font-family:var(--hand);font-size:21px;color:var(--tomato);transform:rotate(8deg)}
+.card .example{position:absolute;top:14px;left:16px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--cream);border:1px dashed var(--ink-soft);border-radius:99px;padding:1px 7px;color:var(--ink-soft)}
 .flags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .flag{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--cream);border:1px solid var(--line)}
 .flag.en{background:var(--mint);border-color:transparent;color:var(--mint-ink)}
 .flag.fr{background:var(--tomato-soft);border-color:transparent;color:var(--rust)}
 .flag.bonus{background:var(--sky);border-color:transparent;color:var(--sky-ink)}
-.match{display:flex;align-items:center;gap:10px;font-size:12px;margin-top:4px}
+.match{display:flex;align-items:center;gap:10px;font-size:12px}
 .match .bar{flex:1;height:8px;border-radius:99px;background:var(--cream);overflow:hidden;border:1px solid var(--line)}
 .match .bar i{display:block;height:100%;background:var(--tomato);border-radius:99px}
-.match b{font-weight:700;min-width:3ch;text-align:right}
+.match b{min-width:3.2ch;text-align:right;font-variant-numeric:tabular-nums}
+.match.none{color:var(--ink-soft);justify-content:center;font-style:italic}
 details.fit{font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
-details.fit summary{cursor:pointer;font-weight:500;list-style:none}
-details.fit summary::before{content:"✱ ";color:var(--tomato)}
-details.fit ul{margin:6px 0 0;padding-left:18px}
-details.fit .plus li::marker{content:"+ ";color:var(--mint-ink)}
-details.fit .minus li::marker{content:"– ";color:var(--tomato)}
-.card .actions{margin-top:auto;display:flex;justify-content:center;gap:8px;padding-top:8px;flex-wrap:wrap}
+details.fit summary{cursor:pointer;font-weight:500}
+details.fit h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:8px 0 2px;color:var(--ink-soft);font-weight:500}
+details.fit ul{margin:0;padding-left:18px}
+details.fit .plus li::marker{content:"+  ";color:var(--mint-ink);font-weight:700}
+details.fit .minus li::marker{content:"–  ";color:var(--tomato);font-weight:700}
+.card .actions{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;padding-top:8px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--tomato);color:#fff;border:0;border-radius:999px;padding:9px 18px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.status-select{appearance:none;-webkit-appearance:none;border:1.5px solid var(--ink);background:var(--paper);border-radius:999px;padding:7px 28px 7px 12px;font-size:12px;font-weight:500;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.status-select[data-s="saved"]{background-color:var(--sky)}
+.status-select[data-s="applied"]{background-color:var(--butter)}
+.status-select[data-s="interview"]{background-color:var(--mint)}
+.status-select[data-s="offer"]{background-color:var(--mint);border-color:var(--mint-ink)}
+.status-select[data-s="rejected"],.status-select[data-s="skip"]{background-color:var(--cream);color:var(--ink-soft)}
 .card .src{text-align:center;font-size:11px;color:var(--ink-soft)}
-.empty{text-align:center;font-family:var(--hand);font-size:24px;grid-column:1/-1;padding:30px}
+.empty{grid-column:1/-1;text-align:center;padding:36px 16px}
+.empty p{font-family:var(--hand);font-size:26px;margin:0 0 4px}
+.empty small{color:var(--ink-soft)}
+.show-hidden{display:block;margin:20px auto 0;background:none;border:0;text-decoration:underline;font-size:12px;color:var(--ink-soft);cursor:pointer}
 
-/* quick search */
-.quick{padding:60px 22px;text-align:center;border-top:2px solid var(--rust)}
-.quick h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,36px);margin:0 0 8px}
-.quick p{max-width:56ch;margin:0 auto 22px;color:var(--ink-soft);font-size:14px}
-.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:860px;margin:0 auto;text-align:left}
-.qbox{background:var(--paper);border:1.5px solid var(--ink);border-radius:18px;padding:18px}
-.qbox h5{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-.qbox a{display:inline-block;margin:0 6px 8px 0;font-size:12px;text-decoration:none;padding:5px 11px;border-radius:999px;background:var(--cream);border:1px solid var(--line)}
-.qbox a:hover{background:var(--sky)}
+/* tracker view */
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:1080px;margin:0 auto}
+.col{background:var(--paper);border-radius:20px;padding:16px;min-width:0}
+.col h3{margin:0 0 10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between}
+.col h3 span{font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.trow{border-top:1px dashed var(--line);padding:10px 0;display:flex;flex-direction:column;gap:6px}
+.trow b{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.1}
+.trow .meta{font-size:12px;color:var(--ink-soft)}
+.trow input{width:100%;border:1px solid var(--line);background:var(--cream);border-radius:10px;padding:6px 9px;font-size:12px}
+.trow .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.trow a{font-size:12px}
+.col .none{font-size:12px;color:var(--ink-soft);font-style:italic}
 
-/* sources */
-.sources{background:var(--rust);color:var(--cream);padding:46px 22px}
-.sources h3{font-family:var(--serif);font-weight:400;font-size:30px;text-align:center;margin:0 0 20px}
-.src-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:0 auto}
-.src-item{border:1.5px solid var(--cream);border-radius:999px;padding:7px 14px;font-size:12px;display:inline-flex;gap:8px;align-items:center}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--butter)}
-.dot.ok{background:#9fd8b8}
-.dot.manual{background:var(--sky)}
-.legend{text-align:center;font-size:12px;opacity:.8;margin-top:16px}
-footer{text-align:center;padding:22px;font-family:var(--hand);font-size:22px;color:var(--rust);background:var(--cream)}
+/* manual search */
+.manual{margin:22px auto 0;max-width:1080px;color:var(--cream)}
+.manual summary{cursor:pointer;font-size:13px;letter-spacing:.04em;text-align:center;list-style:none}
+.manual summary::-webkit-details-marker{display:none}
+.manual summary::before{content:"✱ ";color:var(--butter)}
+.mgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.mbox{border:1.5px solid var(--cream);border-radius:18px;padding:14px}
+.mbox h4{margin:0 0 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.mbox a{display:inline-block;margin:0 6px 8px 0;font-size:12px;text-decoration:none;padding:5px 11px;border-radius:999px;border:1px solid rgba(246,239,226,.5)}
+.mbox a:hover{background:var(--cream);color:var(--rust)}
+.mnote{font-size:12px;opacity:.8;text-align:center;margin:10px 0 0}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--ink);color:var(--butter);padding:8px 16px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
 
-/* responsive */
-@media (max-width:900px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .arrow{display:none}
+@media (max-width:920px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .board{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (max-width:680px){
-  .frame{padding:10px 8px 24px}
-  .hero{grid-template-columns:1fr}
-  .hero-art{height:240px;border-bottom:2px solid var(--rust)}
-  .hero-copy{padding:30px 20px 34px}
-  .badge{width:84px;height:84px;right:14px;top:14px}
-  .cards{grid-template-columns:1fr}
-  .quick-grid{grid-template-columns:1fr}
-  .intro{padding:44px 16px 10px}
-  .digest{border-radius:30px 30px 0 0;padding:40px 14px 44px}
+@media (max-width:620px){
+  .sheet{border-radius:26px;padding:22px 12px 28px}
+  .cards,.board,.mgrid{grid-template-columns:1fr}
+  .tabs{justify-content:flex-start}
+  .status{text-align:left}
 }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-</head>
-<body>
+
 <div class="frame">
-<div class="page">
-
-  <div class="testbar">черновик · вакансии ниже выдуманы, чтобы показать дизайн</div>
-
-  <nav>
-    <div class="links"><a href="#digest">(дайджест)</a><a href="#quick">(linkedin & indeed)</a><a href="#sources">(источники)</a></div>
-    <div class="links"><span id="updated">(обновлено —)</span><a href="#">(моё резюме)</a></div>
-  </nav>
-
-  <header class="hero">
-    <div class="hero-art" aria-hidden="true">
-      <!-- retro Lyon postcard: sun, Fourvière hill, Rhône & Saône -->
-      <svg viewBox="0 0 600 430" preserveAspectRatio="xMidYMid slice">
-        <rect width="600" height="430" fill="#f3de85"/>
-        <g fill="none" stroke="#e8552b" stroke-width="14">
-          <path d="M300 250a170 170 0 0 1 340 0"/>
-        </g>
-        <circle cx="300" cy="190" r="92" fill="#e8552b"/>
-        <g stroke="#f3de85" stroke-width="10">
-          <line x1="190" y1="160" x2="410" y2="160"/>
-          <line x1="200" y1="186" x2="400" y2="186"/>
-          <line x1="212" y1="212" x2="388" y2="212"/>
-        </g>
-        <path d="M0 260 C90 200 170 205 250 240 S420 230 600 200 V430 H0Z" fill="#9a3a22"/>
-        <!-- basilica -->
-        <g fill="#f6efe2">
-          <rect x="140" y="182" width="70" height="44"/>
-          <rect x="132" y="168" width="14" height="58"/>
-          <rect x="204" y="168" width="14" height="58"/>
-          <path d="M132 168 l7 -14 l7 14z M204 168 l7 -14 l7 14z"/>
-          <path d="M150 182 h50 l-25 -18z"/>
-        </g>
-        <path d="M0 300 C120 270 220 290 320 300 S500 290 600 270 V430 H0Z" fill="#7b2d1a"/>
-        <g fill="#c3d7ec">
-          <path d="M0 340 C100 320 200 345 300 335 S500 320 600 330 V430 H0Z"/>
-        </g>
-        <g fill="none" stroke="#fbf7ee" stroke-width="5" stroke-linecap="round">
-          <path d="M40 365 q20 -10 40 0 t40 0"/>
-          <path d="M250 380 q20 -10 40 0 t40 0"/>
-          <path d="M440 360 q20 -10 40 0 t40 0"/>
-          <path d="M120 405 q20 -10 40 0 t40 0"/>
-          <path d="M380 410 q20 -10 40 0 t40 0"/>
-        </g>
-        <text x="300" y="95" text-anchor="middle" font-family="Caveat, cursive" font-size="34" fill="#7b2d1a">bonjour, Lyon</text>
-      </svg>
-    </div>
-    <div class="hero-copy">
-      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
-        <defs><path id="circ" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
-        <circle cx="60" cy="60" r="58" fill="#f3de85"/>
-        <circle cx="60" cy="60" r="52" fill="none" stroke="#e8552b" stroke-width="1.5"/>
-        <text font-family="DM Sans" font-size="10.5" font-weight="700" letter-spacing="2.2" fill="#e8552b"><textPath href="#circ">LYON FIRST ✱ ENGLISH ONLY ✱ </textPath></text>
-        <text x="60" y="70" text-anchor="middle" font-family="Fraunces" font-weight="900" font-size="30" fill="#e8552b">bs</text>
-      </svg>
-      <div class="logo">bon<br>stage</div>
-      <p class="script">стажировки со смыслом</p>
-      <h1>Бренд, исследования и медиа‑стратегия — во Франции и по Европе</h1>
-      <p class="lede">Сайт сам собирает вакансии на английском, отсеивает «просто постить сторис» и показывает, где моё резюме сильное, а где чего‑то не хватает.</p>
-      <a class="btn" href="#digest">смотреть дайджест</a>
-    </div>
+  <header class="top">
+    <p class="logo">bon stage<small>internships with a point</small></p>
+    <div class="status" id="status">loading…</div>
   </header>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span>brand strategy <b>✱</b> market research <b>✱</b> lyon first <b>✱</b> english only <b>✱</b> erasmus+ ready <b>✱</b> no fast fashion <b>✱</b> audience insights <b>✱</b> content strategy <b>✱</b></span>
-      <span>brand strategy <b>✱</b> market research <b>✱</b> lyon first <b>✱</b> english only <b>✱</b> erasmus+ ready <b>✱</b> no fast fashion <b>✱</b> audience insights <b>✱</b> content strategy <b>✱</b></span>
+  <main class="sheet">
+    <div class="summary">
+      <span class="chip-label">since last update</span>
+      <h1 id="headline">Your internship digest</h1>
     </div>
-  </div>
 
-  <section class="intro">
-    <h2>Я студентка VILNIUS TECH
-      <span class="sticker st-sky"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z" fill="#2f5d8a"/><path d="M6 11v5c3 2 9 2 12 0v-5" fill="none" stroke="#2f5d8a" stroke-width="2"/></svg></span>,
-      ищу стажировку в бренде и исследованиях
-      <span class="sticker st-tom"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6" fill="none" stroke="#fff" stroke-width="2.6"/><path d="M14.5 14.5L21 21" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-      — во Франции, на английском
-      <span class="sticker st-but"><svg viewBox="0 0 24 24"><path d="M2 14l20-8-6 16-4-6z" fill="#7b2d1a"/></svg></span>
-      и в компании, за которую не стыдно
-      <span class="sticker st-mint"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z" fill="#2c6b55"/></svg></span>
-    </h2>
-  </section>
+    <div class="tabs-wrap"><div class="tabs" id="tabs" role="tablist" aria-label="Roles"></div></div>
+    <p class="role-blurb" id="blurb"></p>
 
-  <div class="callout-wrap">
-    <svg class="arrow l" viewBox="0 0 150 190" aria-hidden="true"><path d="M20 20 C 0 80, 40 120, 60 100 C 80 80, 40 60, 30 110 C 22 150, 70 170, 140 160" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M128 150 l13 10 -15 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <svg class="arrow r" viewBox="0 0 150 190" aria-hidden="true"><path d="M30 10 C 80 30, 10 90, 50 120 C 80 140, 110 150, 140 160" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M128 150 l13 10 -15 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="callout">
-      <span class="chip-label">с прошлого обновления</span>
-      <h3 id="digestHeadline">— новых вакансий</h3>
-      <p class="meta" id="digestMeta"></p>
-      <a class="btn" href="#digest">к дайджесту</a>
+    <div id="digestView">
+      <div class="filters" id="filters"></div>
+      <div class="cards" id="cards"></div>
+      <button class="show-hidden" id="showHidden" hidden></button>
     </div>
-  </div>
-
-  <section class="digest" id="digest">
-    <p class="sec-title">дайджест вакансий</p>
-    <p class="sec-sub">сначала самые подходящие</p>
-    <div class="filters" role="group" aria-label="Фильтры">
-      <button class="pill" data-f="all" aria-pressed="true">все</button>
-      <button class="pill" data-f="new" aria-pressed="false">только новые</button>
-      <button class="pill" data-f="lyon" aria-pressed="false">Лион</button>
-      <button class="pill" data-f="france" aria-pressed="false">Франция</button>
-      <button class="pill" data-f="eu" aria-pressed="false">другие страны</button>
-      <button class="pill" data-f="intern" aria-pressed="false">стажировка</button>
-      <button class="pill" data-f="junior" aria-pressed="false">junior</button>
-      <button class="pill" data-f="nofr" aria-pressed="false">без французского</button>
+    <div id="trackerView" hidden>
+      <div class="board" id="board"></div>
     </div>
-    <div class="cards" id="cards"></div>
-  </section>
+  </main>
 
-  <section class="quick" id="quick">
-    <h3>LinkedIn & Indeed в один клик</h3>
-    <p>Эти сайты запрещают автоматический сбор вакансий, поэтому здесь готовые поиски с нужными фильтрами: открываешь и смотришь сама.</p>
-    <div class="quick-grid" id="quickGrid"></div>
-  </section>
-
-  <section class="sources" id="sources">
-    <h3>Откуда вакансии</h3>
-    <div class="src-list" id="srcList"></div>
-    <p class="legend">● зелёный — собирается автоматически · ● голубой — ссылки для ручного поиска · ● жёлтый — ещё проверяем</p>
-  </section>
-
-  <footer>bon stage · сделано для одной очень целеустремлённой студентки</footer>
+  <details class="manual" id="manual">
+    <summary>Search LinkedIn & Indeed yourself</summary>
+    <div class="mgrid" id="mgrid"></div>
+    <p class="mnote">These sites don't allow automatic collection, so these are ready-made searches with the right filters.</p>
+  </details>
 </div>
-</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ===== DATA (пока тестовые данные — потом этот блок будет обновляться автоматически) ===== */
-const DATA = {
-  updated: "2026-11-10",
-  jobs: [
-    { id:1, isNew:true, title:"Brand Strategy Intern", company:"Maison Lumen (пример)", size:"200–500", city:"Lyon", country:"France", region:"lyon",
-      type:"intern", duration:"6 months", french:"not required", source:"Welcome to the Jungle", icon:"spark", bonus:false, match:84,
-      plus:["Исследования аудитории в учёбе","Английский — рабочий язык"], minus:["Просят Figma на базовом уровне"], url:"#" },
-    { id:2, isNew:true, title:"Market Research Assistant", company:"Atlas Insights (пример)", size:"50–200", city:"Lyon", country:"France", region:"lyon",
-      type:"intern", duration:"4–6 months", french:"nice to have", source:"The Local", icon:"lens", bonus:false, match:76,
-      plus:["Опыт опросов и анализа данных"], minus:["Excel продвинутый (сводные таблицы)","Французский — плюс"], url:"#" },
-    { id:3, isNew:true, title:"Content Strategy Intern — Student Mobility", company:"Campus Bridge (пример)", size:"100–250", city:"Paris", country:"France", region:"france",
-      type:"intern", duration:"5 months", french:"not required", source:"Erasmus Careers", icon:"cap", bonus:true, match:81,
-      plus:["Сама международная студентка — понимаешь аудиторию","Контент-планы"], minus:["Нужен Google Analytics"], url:"#" },
-    { id:4, isNew:false, title:"Junior Brand Analyst", company:"Nordlicht Studio (пример)", size:"300+", city:"Amsterdam", country:"Netherlands", region:"eu",
-      type:"junior", duration:"permanent", french:"not required", source:"EURES", icon:"chart", bonus:false, match:68,
-      plus:["Брендинг","Английский"], minus:["1 год опыта в агентстве","SQL на базовом уровне"], url:"#" },
-    { id:5, isNew:false, title:"Audience Insights Trainee", company:"Kraków Media Lab (пример)", size:"80–150", city:"Kraków", country:"Poland", region:"eu",
-      type:"intern", duration:"3 months", french:"not required", source:"iagora", icon:"lens", bonus:false, match:72,
-      plus:["Исследования аудитории"], minus:["Польский — плюс, но не обязателен"], url:"#" },
-    { id:6, isNew:true, title:"Marketing & Brand Intern", company:"Verde Commons (пример)", size:"60–120", city:"Bordeaux", country:"France", region:"france",
-      type:"intern", duration:"6 months", french:"required", source:"Indeed (через поиск)", icon:"spark", bonus:false, match:58,
-      plus:["Бренд-позиционирование"], minus:["Французский B2 обязателен"], url:"#" }
-  ],
-  sources: [
-    { name:"Erasmus Careers", status:"check" },
-    { name:"Welcome to the Jungle", status:"check" },
-    { name:"The Local", status:"check" },
-    { name:"iagora", status:"check" },
-    { name:"EURES", status:"check" },
-    { name:"LinkedIn", status:"manual" },
-    { name:"Indeed", status:"manual" }
-  ]
+(() => {
+/* ---------- constants ---------- */
+const STATUSES = [
+  ["", "Not tracked"], ["saved","Saved"], ["applied","Applied"], ["interview","Interview"],
+  ["offer","Offer"], ["rejected","Rejected"], ["skip","Not for me"]
+];
+const BOARD_COLS = [["saved","Saved"],["applied","Applied"],["interview","Interview"],["offer","Offer"]];
+const FILTERS = [
+  { key:"place", label:"Where", opts:[["all","All"],["lyon","Lyon"],["france","France"],["abroad","Other countries"]] },
+  { key:"type", label:"Type", opts:[["all","All"],["intern","Internship"],["junior","Junior"]] },
+  { key:"start", label:"Start", opts:[["all","Any"],["summer27","Summer 27"],["autumn27","Autumn 27"]] },
+  { key:"extra", label:"Only", opts:[["all","All"],["new","New"],["nofr","No French needed"]] }
+];
+const ICONS = {
+  spark:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 34c6-18 22-26 40-22 8 2 10 12 4 20-7 10-26 18-38 14-6-2-8-6-6-12z" fill="#e04e24"/><path d="M32 18l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#fbf7ee"/></svg>`,
+  lens:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 30c2-14 18-22 32-18 12 4 16 16 10 26-6 10-22 16-34 10-6-4-9-10-8-18z" fill="#c3d7ec"/><circle cx="29" cy="29" r="9" fill="none" stroke="#2f5d8a" stroke-width="4"/><path d="M36 36l9 9" stroke="#2f5d8a" stroke-width="4" stroke-linecap="round"/></svg>`,
+  cap:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 32c4-16 22-24 38-18 12 4 16 18 8 28-8 9-26 14-38 8-6-4-9-10-8-18z" fill="#c7e6da"/><path d="M14 28l18-9 18 9-18 9z" fill="#2c6b55"/><path d="M22 32v8c6 4 14 4 20 0v-8" fill="none" stroke="#2c6b55" stroke-width="3"/></svg>`,
+  chart:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 36c4-18 20-26 36-22 12 3 16 16 10 26-7 10-24 14-36 10-7-3-11-7-10-14z" fill="#f6efe2" stroke="#7b2d1a" stroke-width="2"/><rect x="20" y="32" width="6" height="12" fill="#7b2d1a"/><rect x="30" y="24" width="6" height="20" fill="#e04e24"/><rect x="40" y="28" width="6" height="16" fill="#7b2d1a"/></svg>`,
+  pen:`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 32c4-16 20-24 36-20 12 3 16 16 10 26-6 10-24 15-36 10-7-3-11-9-10-16z" fill="#f6c7b4"/><path d="M22 42l3-9 15-15 6 6-15 15z" fill="#7b2d1a"/><path d="M22 42l3-9 6 6z" fill="#fbf7ee"/></svg>`
 };
-
-/* ===== Готовые поиски LinkedIn / Indeed ===== */
-const QUICK = [
+const MANUAL = [
   { label:"LinkedIn", links:[
-    ["Brand strategy · Lyon", "https://www.linkedin.com/jobs/search/?keywords=brand%20strategy&location=Lyon%2C%20France&f_E=1%2C2"],
-    ["Market research · Lyon", "https://www.linkedin.com/jobs/search/?keywords=market%20research&location=Lyon%2C%20France&f_E=1%2C2"],
-    ["Content strategy · France", "https://www.linkedin.com/jobs/search/?keywords=content%20strategy%20english&location=France&f_E=1%2C2"],
-    ["Brand intern · Netherlands", "https://www.linkedin.com/jobs/search/?keywords=brand%20intern&location=Netherlands&f_E=1%2C2"],
-    ["Marketing intern · Poland", "https://www.linkedin.com/jobs/search/?keywords=marketing%20intern%20english&location=Poland&f_E=1%2C2"]
+    ["Brand strategy · Lyon","https://www.linkedin.com/jobs/search/?keywords=brand%20strategy&location=Lyon%2C%20France&f_E=1%2C2"],
+    ["Market research · Lyon","https://www.linkedin.com/jobs/search/?keywords=market%20research&location=Lyon%2C%20France&f_E=1%2C2"],
+    ["Content strategy · France","https://www.linkedin.com/jobs/search/?keywords=content%20strategy%20english&location=France&f_E=1%2C2"],
+    ["Junior marketing · France","https://www.linkedin.com/jobs/search/?keywords=junior%20marketing%20english&location=France&f_E=1%2C2"],
+    ["Brand intern · Netherlands","https://www.linkedin.com/jobs/search/?keywords=brand%20intern&location=Netherlands&f_E=1%2C2"],
+    ["Marketing intern · Poland","https://www.linkedin.com/jobs/search/?keywords=marketing%20intern%20english&location=Poland&f_E=1%2C2"]
   ]},
   { label:"Indeed", links:[
-    ["Brand strategy · Lyon", "https://fr.indeed.com/jobs?q=brand+strategy+english&l=Lyon"],
-    ["Stage marketing anglais · Lyon", "https://fr.indeed.com/jobs?q=stage+marketing+anglais&l=Lyon"],
-    ["Market research intern · France", "https://fr.indeed.com/jobs?q=market+research+intern&l=France"],
-    ["Brand intern · Netherlands", "https://nl.indeed.com/jobs?q=brand+intern+english"],
-    ["Marketing intern · Poland", "https://pl.indeed.com/jobs?q=marketing+intern+english"]
+    ["Brand strategy · Lyon","https://fr.indeed.com/jobs?q=brand+strategy+english&l=Lyon"],
+    ["Stage marketing anglais · Lyon","https://fr.indeed.com/jobs?q=stage+marketing+anglais&l=Lyon"],
+    ["Market research intern · France","https://fr.indeed.com/jobs?q=market+research+intern&l=France"],
+    ["Content intern · France","https://fr.indeed.com/jobs?q=content+intern+english&l=France"],
+    ["Brand intern · Netherlands","https://nl.indeed.com/jobs?q=brand+intern+english"],
+    ["Marketing intern · Poland","https://pl.indeed.com/jobs?q=marketing+intern+english"]
   ]}
 ];
 
-/* ===== Render ===== */
-const ICONS = {
-  spark:`<svg viewBox="0 0 64 64"><path d="M8 34c6-18 22-26 40-22 8 2 10 12 4 20-7 10-26 18-38 14-6-2-8-6-6-12z" fill="#e8552b"/><path d="M32 18l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#fbf7ee"/></svg>`,
-  lens:`<svg viewBox="0 0 64 64"><path d="M10 30c2-14 18-22 32-18 12 4 16 16 10 26-6 10-22 16-34 10-6-4-9-10-8-18z" fill="#c3d7ec"/><circle cx="29" cy="29" r="9" fill="none" stroke="#2f5d8a" stroke-width="4"/><path d="M36 36l9 9" stroke="#2f5d8a" stroke-width="4" stroke-linecap="round"/></svg>`,
-  cap:`<svg viewBox="0 0 64 64"><path d="M6 32c4-16 22-24 38-18 12 4 16 18 8 28-8 9-26 14-38 8-6-4-9-10-8-18z" fill="#c7e6da"/><path d="M14 28l18-9 18 9-18 9z" fill="#2c6b55"/><path d="M22 32v8c6 4 14 4 20 0v-8" fill="none" stroke="#2c6b55" stroke-width="3"/></svg>`,
-  chart:`<svg viewBox="0 0 64 64"><path d="M8 36c4-18 20-26 36-22 12 3 16 16 10 26-7 10-24 14-36 10-7-3-11-7-10-14z" fill="#f3de85" stroke="#7b2d1a" stroke-width="2"/><rect x="20" y="32" width="6" height="12" fill="#7b2d1a"/><rect x="30" y="24" width="6" height="20" fill="#e8552b"/><rect x="40" y="28" width="6" height="16" fill="#7b2d1a"/></svg>`
-};
-const typeLabel = t => t==="intern" ? "internship" : "junior";
-const frFlag = f => f==="not required" ? `<span class="flag en">без французского</span>`
-  : f==="nice to have" ? `<span class="flag">французский — плюс</span>` : `<span class="flag fr">нужен французский</span>`;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* ---------- state ---------- */
+const S = { db:null, roles:[], jobs:[], tracker:{}, meta:null, tab:null,
+  f:{place:"all",type:"all",start:"all",extra:"all"}, showHidden:false, loaded:false, offline:false };
+try { const t = localStorage.getItem("bs.tab"); if (t) S.tab = t; } catch(e){}
+try { const f = JSON.parse(localStorage.getItem("bs.f")||"null"); if (f) Object.assign(S.f, f); } catch(e){}
 
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => /^https?:\/\//i.test(String(u||"")) ? String(u) : "";
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("on"),1800); }
+const fmtDate = iso => { if(!iso) return ""; const d=new Date(iso+(iso.length===10?"T12:00:00":"")); return isNaN(d)?iso:d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); };
+
+/* ---------- derived ---------- */
+const isNew = j => !!(S.meta && S.meta.lastRunAt && j.addedAt && j.addedAt >= S.meta.lastRunAt);
+const statusOf = j => (S.tracker[j.id] && S.tracker[j.id].status) || "";
+const isHidden = j => ["rejected","skip"].includes(statusOf(j));
+function startBucket(s){ // "2027-06" or "flexible"
+  if (!s || !/^\d{4}-\d{2}/.test(s)) return "any";
+  const [y,m] = s.split("-").map(Number);
+  if (y===2027 && m>=6 && m<=8) return "summer27";
+  if (y===2027 && m>=9 && m<=11) return "autumn27";
+  return "other";
+}
+function passes(j){
+  const f=S.f;
+  if (f.place==="lyon" && j.region!=="lyon") return false;
+  if (f.place==="france" && j.country!=="France") return false;
+  if (f.place==="abroad" && j.country==="France") return false;
+  if (f.type!=="all" && j.type!==f.type) return false;
+  if (f.start!=="all"){ const b=startBucket(j.start); if (b!==f.start && b!=="any") return false; }
+  if (f.extra==="new" && !isNew(j)) return false;
+  if (f.extra==="nofr" && j.french==="required") return false;
+  return true;
+}
+const jobsForTab = () => S.jobs.filter(j => j.role===S.tab);
+
+/* ---------- render ---------- */
+function renderStatus(){
+  const el=$("status");
+  if (!S.db && S.loaded){ el.innerHTML="Open this page on claude.ai to see your vacancies"; return; }
+  if (!S.loaded){ el.textContent = S.offline ? "Can't reach your data yet. Check your connection." : "loading…"; return; }
+  const m=S.meta||{};
+  el.innerHTML = m.lastRunAt
+    ? `updated <b>${esc(fmtDate(m.lastRunAt))}</b>${m.nextRunAt?` · next update <b>${esc(fmtDate(m.nextRunAt))}</b>`:""}`
+    : "waiting for the first update";
+}
+function renderHeadline(){
+  const fresh=S.jobs.filter(isNew), lyon=fresh.filter(j=>j.region==="lyon").length;
+  $("headline").textContent = !S.loaded ? "Your internship digest"
+    : fresh.length ? `${fresh.length} new ${fresh.length===1?"vacancy":"vacancies"}${lyon?`, ${lyon} in Lyon`:""}`
+    : S.jobs.length ? "Nothing new since last time" : "Your internship digest";
+}
+function renderTabs(){
+  const roles=S.roles;
+  if (roles.length && S.tab!=="tracker" && !roles.some(r=>r.id===S.tab)) S.tab = roles[0].id;
+  if (!roles.length && S.loaded && S.tab!=="tracker") S.tab = "tracker";
+  const tracked = Object.values(S.tracker).filter(t=>t.status && !["rejected","skip"].includes(t.status)).length;
+  $("tabs").innerHTML = roles.map(r=>{
+    const n=S.jobs.filter(j=>j.role===r.id && !isHidden(j)).length;
+    return `<button class="tab" role="tab" data-tab="${esc(r.id)}" aria-selected="${S.tab===r.id}">${esc(r.name)}<span class="n">${n}</span></button>`;
+  }).join("") + `<button class="tab tracker" role="tab" data-tab="tracker" aria-selected="${S.tab==="tracker"}">My applications<span class="n">${tracked}</span></button>`;
+  const r=roles.find(x=>x.id===S.tab);
+  $("blurb").textContent = S.tab==="tracker" ? "everything you saved or applied to, across all roles" : (r?.blurb||"");
+  $("digestView").hidden = S.tab==="tracker";
+  $("trackerView").hidden = S.tab!=="tracker";
+}
+function renderFilters(){
+  $("filters").innerHTML = FILTERS.map(g=>`<div class="fgroup" role="group" aria-label="${g.label}"><span>${g.label}</span>${
+    g.opts.map(([v,l])=>`<button class="pill" data-g="${g.key}" data-v="${v}" aria-pressed="${S.f[g.key]===v}">${l}</button>`).join("")}</div>`).join("");
+}
+function statusSelect(j, id){
+  const s=statusOf(j);
+  return `<select class="status-select" id="${id}" data-job="${esc(j.id)}" data-s="${s}" aria-label="Application status">${
+    STATUSES.map(([v,l])=>`<option value="${v}"${v===s?" selected":""}>${l}</option>`).join("")}</select>`;
+}
+const frFlag = f => f==="required" ? `<span class="flag fr">French required</span>`
+  : f==="nice" ? `<span class="flag">French is a plus</span>` : `<span class="flag en">English only</span>`;
 function card(j){
-  return `<article class="card">
-    ${j.isNew ? `<span class="new">new!</span>` : ""}
+  const m = typeof j.match==="number";
+  const plus=(j.plus||[]), minus=(j.minus||[]);
+  const url=safeUrl(j.url);
+  return `<article class="card${isHidden(j)?" dim":""}">
+    ${j.example?`<span class="example">example</span>`:""}
+    ${isNew(j)?`<span class="new">new!</span>`:""}
     <div class="ico">${ICONS[j.icon]||ICONS.spark}</div>
-    <div class="kicker">${esc(j.city)} · ${typeLabel(j.type)} · ${esc(j.duration)}</div>
-    <h4>${esc(j.title)}</h4>
-    <div class="company">${esc(j.company)} · ${esc(j.size)} чел.</div>
-    <div class="flags">${frFlag(j.french)}${j.bonus ? `<span class="flag bonus">международные студенты ♥</span>` : ""}</div>
-    <div class="match" title="Насколько вакансия совпадает с резюме"><span>совпадение</span><span class="bar"><i style="width:${j.match}%"></i></span><b>${j.match}%</b></div>
-    <details class="fit"><summary>сильные стороны и чего не хватает</summary>
-      <ul class="plus">${j.plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-      <ul class="minus">${j.minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-    </details>
-    <div class="actions"><a class="btn" href="${esc(j.url)}" target="_blank" rel="noopener">открыть вакансию</a></div>
-    <div class="src">источник: ${esc(j.source)}</div>
+    <div class="kicker">${esc(j.city)}${j.country&&j.country!=="France"?`, ${esc(j.country)}`:""} · ${j.type==="junior"?"junior":"internship"}${j.startLabel?` · ${esc(j.startLabel)}`:""}</div>
+    <h3>${esc(j.title)}</h3>
+    <div class="company">${esc(j.company)}${j.size?` · ${esc(j.size)} people`:""}</div>
+    <div class="flags">${frFlag(j.french)}${j.bonus?`<span class="flag bonus">international students ♥</span>`:""}${j.paid===false?`<span class="flag">unpaid</span>`:j.paid===true?`<span class="flag">paid</span>`:""}</div>
+    ${m?`<div class="match" title="How well this matches your CV for this role"><span>CV match</span><span class="bar"><i style="width:${Math.max(0,Math.min(100,j.match))}%"></i></span><b>${j.match}%</b></div>`
+       :`<div class="match none">CV match appears once your CV is added</div>`}
+    ${(plus.length||minus.length)?`<details class="fit"><summary>Strengths & gaps</summary>
+      ${plus.length?`<h4>You already have</h4><ul class="plus">${plus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+      ${minus.length?`<h4>They also want</h4><ul class="minus">${minus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+    </details>`:""}
+    <div class="actions">${url?`<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open listing</a>`:""}${statusSelect(j,"st-"+j.id)}</div>
+    <div class="src">via ${esc(j.source)}${j.addedAt?` · found ${esc(fmtDate(j.addedAt))}`:""}</div>
   </article>`;
 }
-
-const FILTERS = {
-  all:()=>true, new:j=>j.isNew, lyon:j=>j.region==="lyon", france:j=>j.country==="France",
-  eu:j=>j.country!=="France", intern:j=>j.type==="intern", junior:j=>j.type==="junior", nofr:j=>j.french!=="required"
-};
-let active = "all";
-function render(){
-  const list = DATA.jobs.filter(FILTERS[active]).sort((a,b)=>
-    (b.region==="lyon")-(a.region==="lyon") || b.match-a.match);
-  document.getElementById("cards").innerHTML = list.length ? list.map(card).join("") : `<p class="empty">тут пока пусто — загляни после следующего обновления</p>`;
+function renderCards(){
+  const el=$("cards"), btn=$("showHidden");
+  if (!S.loaded){ el.innerHTML=`<div class="empty"><p>${S.offline?"can't reach your vacancies yet":"loading your vacancies…"}</p></div>`; btn.hidden=true; return; }
+  if (!S.db){ el.innerHTML=`<div class="empty"><p>your vacancies live on claude.ai</p><small>Open this page through its claude.ai link to see them.</small></div>`; btn.hidden=true; return; }
+  const all=jobsForTab();
+  if (!all.length){ el.innerHTML=`<div class="empty"><p>no vacancies for this role yet</p><small>They will appear after the next update.</small></div>`; btn.hidden=true; return; }
+  const hiddenCount = all.filter(isHidden).length;
+  const list = all.filter(j=>passes(j) && (S.showHidden || !isHidden(j))).sort((a,b)=>
+    (isNew(b)-isNew(a)) || ((b.region==="lyon")-(a.region==="lyon")) || ((b.match??-1)-(a.match??-1)));
+  el.innerHTML = list.length ? list.map(card).join("")
+    : `<div class="empty"><p>nothing matches these filters</p><small>Try “All” in one of the groups above.</small></div>`;
+  btn.hidden = !hiddenCount;
+  btn.textContent = S.showHidden ? "Hide rejected and “not for me”" : `Show ${hiddenCount} rejected or “not for me”`;
 }
-document.querySelectorAll(".pill").forEach(b=>b.addEventListener("click",()=>{
-  active=b.dataset.f;
-  document.querySelectorAll(".pill").forEach(x=>x.setAttribute("aria-pressed", x===b));
+function renderBoard(){
+  const byId=Object.fromEntries(S.jobs.map(j=>[j.id,j]));
+  $("board").innerHTML = BOARD_COLS.map(([s,label])=>{
+    const rows=Object.entries(S.tracker).filter(([id,t])=>t.status===s && byId[id]).map(([id,t])=>{
+      const j=byId[id], url=safeUrl(j.url), role=S.roles.find(r=>r.id===j.role);
+      return `<div class="trow"><b>${esc(j.title)}</b>
+        <span class="meta">${esc(j.company)} · ${esc(j.city)}${role?` · ${esc(role.name)}`:""}</span>
+        <input id="note-${esc(id)}" data-note="${esc(id)}" value="${esc(t.note||"")}" placeholder="Note: contact, deadline, next step…" aria-label="Note">
+        <div class="row">${statusSelect(j,"bs-"+id)}${url?`<a href="${esc(url)}" target="_blank" rel="noopener">listing ↗</a>`:""}</div></div>`;
+    });
+    return `<section class="col"><h3>${label}<span>${rows.length}</span></h3>${rows.join("")||`<p class="none">Nothing here yet.</p>`}</section>`;
+  }).join("");
+}
+function renderManual(){
+  $("mgrid").innerHTML = MANUAL.map(q=>`<div class="mbox"><h4>${q.label}</h4>${q.links.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`).join("");
+}
+function render(){ renderStatus(); renderHeadline(); renderTabs(); if (S.tab==="tracker") renderBoard(); else renderCards(); }
+
+/* ---------- events ---------- */
+$("tabs").addEventListener("click", e=>{
+  const b=e.target.closest(".tab"); if(!b) return;
+  S.tab=b.dataset.tab; try{localStorage.setItem("bs.tab",S.tab)}catch(e){}
   render();
-}));
+});
+$("filters").addEventListener("click", e=>{
+  const b=e.target.closest(".pill"); if(!b) return;
+  S.f[b.dataset.g]=b.dataset.v; try{localStorage.setItem("bs.f",JSON.stringify(S.f))}catch(e){}
+  renderFilters(); renderCards();
+});
+$("showHidden").addEventListener("click", ()=>{ S.showHidden=!S.showHidden; renderCards(); });
 
-function plural(n, one, few, many){ const m10=n%10, m100=n%100;
-  return m10===1&&m100!==11?one : m10>=2&&m10<=4&&(m100<12||m100>14)?few : many; }
-const fresh = DATA.jobs.filter(j=>j.isNew);
-const freshLyon = fresh.filter(j=>j.region==="lyon").length;
-document.getElementById("digestHeadline").textContent = `${fresh.length} ${plural(fresh.length,"новая вакансия","новые вакансии","новых вакансий")}, ${freshLyon} — в Лионе`;
-const d = new Date(DATA.updated);
-const dStr = d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
-document.getElementById("digestMeta").textContent = `обновлено ${dStr} · следующее обновление через 3–4 дня`;
-document.getElementById("updated").textContent = `(обновлено ${dStr})`;
+const writing = new Set();
+async function saveTracker(id, patch){
+  if (!S.db){ toast("Open on claude.ai to save"); return; }
+  if (writing.has(id)) { await new Promise(r=>setTimeout(r,300)); return saveTracker(id, patch); }
+  writing.add(id);
+  const prev=S.tracker[id]||{};
+  const next={...prev, ...patch, updatedAt:new Date().toISOString()};
+  try { await S.db.doc("tracker/"+id).set(next); toast(patch.status!==undefined ? (patch.status ? "Status saved" : "Removed from tracker") : "Note saved"); }
+  catch(err){ toast(err&&err.code==="quota_exceeded" ? "Storage is full" : "Couldn't save. Try again."); }
+  finally { writing.delete(id); }
+}
+document.addEventListener("change", e=>{
+  const s=e.target.closest(".status-select");
+  if (s) { s.dataset.s=s.value; saveTracker(s.dataset.job,{status:s.value}); }
+});
+document.addEventListener("focusout", e=>{
+  const i=e.target.closest("input[data-note]"); if(!i) return;
+  const id=i.dataset.note; if ((S.tracker[id]?.note||"")===i.value) return;
+  saveTracker(id,{note:i.value});
+});
 
-document.getElementById("quickGrid").innerHTML = QUICK.map(q=>`<div class="qbox"><h5>${q.label}</h5>${q.links.map(([t,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`).join("");
-document.getElementById("srcList").innerHTML = DATA.sources.map(s=>`<span class="src-item"><span class="dot ${s.status==="ok"?"ok":s.status==="manual"?"manual":""}"></span>${esc(s.name)}</span>`).join("");
-
-render();
+/* ---------- data ---------- */
+renderFilters(); renderManual(); render();
+(async ()=>{
+  const db = window.claude ? await window.claude.use("db").catch(()=>null) : null;
+  if (!db){ S.loaded=true; render(); return; }
+  S.db=db;
+  const got={roles:false,jobs:false,tracker:false,meta:false};
+  const timer=setTimeout(()=>{ if(!S.loaded){ S.offline=true; render(); } },10000);
+  const mark=(k,snap)=>{ if(!snap.metadata.fromCache) got[k]=true;
+    if (Object.values(got).every(Boolean)){ S.loaded=true; S.offline=false; clearTimeout(timer); } };
+  const fail=k=>()=>{ got[k]=true; if(Object.values(got).every(Boolean)){S.loaded=true;clearTimeout(timer);} render(); };
+  db.collection("roles").orderBy("order").onSnapshot(snap=>{
+    S.roles=snap.docs.map(d=>({id:d.id,...d.data()})); mark("roles",snap); render();
+  }, fail("roles"));
+  db.collection("jobs").onSnapshot(snap=>{
+    S.jobs=snap.docs.map(d=>({id:d.id,...d.data()})); mark("jobs",snap); render();
+  }, fail("jobs"));
+  db.collection("tracker").onSnapshot(snap=>{
+    S.tracker=Object.fromEntries(snap.docs.map(d=>[d.id,d.data()])); mark("tracker",snap);
+    // keep a note field the user is typing in
+    if (document.activeElement && document.activeElement.matches("input[data-note]")) { renderTabs(); return; }
+    render();
+  }, fail("tracker"));
+  db.doc("meta/digest").onSnapshot(snap=>{
+    S.meta=snap.exists?snap.data():null; mark("meta",snap); render();
+  }, fail("meta"));
+})();
+})();
 </script>
-</body>
-</html>
