@@ -66,9 +66,12 @@ button,select,input,textarea{font:inherit;color:inherit}
 .role-blurb{text-align:center;font-family:var(--hand);font-size:22px;color:var(--rust);margin:-6px 0 14px}
 
 /* filters */
-.filters{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:center;margin:0 auto 24px;max-width:960px}
-.fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.fgroup > span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-right:2px}
+.filters{display:flex;flex-direction:column;gap:8px;margin:0 auto 26px;max-width:600px;background:var(--paper);border-radius:20px;padding:14px 16px}
+.fgroup{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:center}
+.fgroup > span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.fgroup .opts{display:flex;flex-wrap:wrap;gap:6px}
+.card .note{font-size:13px;color:var(--ink-soft);text-align:center;margin:0}
+.card .posted{font-weight:500;color:var(--ink)}
 .pill{border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;line-height:1.2}
 .pill[aria-pressed="true"]{background:var(--ink);color:var(--butter)}
 
@@ -234,6 +237,7 @@ const FILTERS = [
   { key:"place", label:"Where", opts:[["all","All"],["lyon","Lyon only"],["outside","Outside Lyon"]] },
   { key:"type", label:"Type", opts:[["all","All"],["intern","Internship"],["junior","Junior"]] },
   { key:"start", label:"Start", opts:[["all","Any"],["summer27","Summer 27"],["autumn27","Autumn 27"]] },
+  { key:"posted", label:"Posted", opts:[["all","Any time"],["1","Last 24h"],["3","Last 3 days"],["7","Last week"]] },
   { key:"extra", label:"Only", opts:[["all","All"],["new","New"],["nofr","No French needed"]] }
 ];
 const ICONS = {
@@ -263,7 +267,7 @@ const MANUAL = [
 
 /* ---------- state ---------- */
 const S = { db:null, roles:[], jobs:[], tracker:{}, meta:null, cvs:{}, tailored:{}, tab:null, cvRole:null, openTl:null,
-  f:{place:"all",type:"all",start:"all",extra:"all"}, showHidden:false, loaded:false, offline:false };
+  f:{place:"all",type:"all",start:"all",posted:"all",extra:"all"}, showHidden:false, loaded:false, offline:false };
 try { const t = localStorage.getItem("bs.tab"); if (t) S.tab = t; } catch(e){}
 try { const f = JSON.parse(localStorage.getItem("bs.f")||"null"); if (f) Object.assign(S.f, f); } catch(e){}
 for (const g of FILTERS) if (!g.opts.some(([v])=>v===S.f[g.key])) S.f[g.key]="all";
@@ -293,11 +297,30 @@ function passes(j){
   if (f.place==="outside" && j.region==="lyon") return false;
   if (f.type!=="all" && j.type!==f.type) return false;
   if (f.start!=="all"){ const b=startBucket(j.start); if (b!==f.start && b!=="any") return false; }
+  if (f.posted!=="all"){ const a=ageDays(j); if (a===null || a>Number(f.posted)) return false; }
   if (f.extra==="new" && !isNew(j)) return false;
   if (f.extra==="nofr" && j.french==="required") return false;
   return true;
 }
 const jobsForTab = () => S.jobs.filter(j => j.role===S.tab);
+/* Posting date: the listing's own date, or the day we first saw it
+   (only for listings found after tracking started, so that is close to the real date). */
+function postedDate(j){
+  if (j.postedAt) return j.postedAt;
+  const base=S.meta && S.meta.baselineAt;
+  return (base && j.addedAt && j.addedAt > base) ? j.addedAt : null;
+}
+function ageDays(j){
+  const p=postedDate(j); if(!p) return null;
+  const d=new Date(p+"T12:00:00"), now=new Date(); now.setHours(12,0,0,0);
+  return Math.max(0, Math.round((now-d)/86400000));
+}
+function postedText(j){
+  const a=ageDays(j);
+  if (a===null) return "posting date not shown";
+  const exact = j.postedAt ? "" : " (first seen)";
+  return (a===0 ? "posted today" : a===1 ? "posted yesterday" : `posted ${a} days ago`) + exact;
+}
 
 /* ---------- render: header + tabs ---------- */
 function renderStatus(){
@@ -336,8 +359,8 @@ function renderTabs(){
   $("cvView").hidden = S.tab!=="cvs";
 }
 function renderFilters(){
-  $("filters").innerHTML = FILTERS.map(g=>`<div class="fgroup" role="group" aria-label="${g.label}"><span>${g.label}</span>${
-    g.opts.map(([v,l])=>`<button class="pill" data-g="${g.key}" data-v="${v}" aria-pressed="${S.f[g.key]===v}">${l}</button>`).join("")}</div>`).join("");
+  $("filters").innerHTML = FILTERS.map(g=>`<div class="fgroup" role="group" aria-label="${g.label}"><span>${g.label}</span><div class="opts">${
+    g.opts.map(([v,l])=>`<button class="pill" data-g="${g.key}" data-v="${v}" aria-pressed="${S.f[g.key]===v}">${l}</button>`).join("")}</div></div>`).join("");
 }
 
 /* ---------- render: digest ---------- */
@@ -347,7 +370,8 @@ function statusSelect(j, id){
     STATUSES.map(([v,l])=>`<option value="${v}"${v===s?" selected":""}>${l}</option>`).join("")}</select>`;
 }
 const frFlag = f => f==="required" ? `<span class="flag fr">French required</span>`
-  : f==="nice" ? `<span class="flag">French is a plus</span>` : `<span class="flag en">English only</span>`;
+  : f==="nice" ? `<span class="flag">French is a plus</span>`
+  : f==="none" ? `<span class="flag en">English only</span>` : `<span class="flag">French: check listing</span>`;
 const kindFlag = t => t==="junior" ? `<span class="flag kind junior">Junior role</span>` : `<span class="flag kind">Internship</span>`;
 function card(j){
   const m = typeof j.match==="number";
@@ -362,6 +386,7 @@ function card(j){
     <h3>${esc(j.title)}</h3>
     <div class="company">${esc(j.company)}${j.size?` · ${esc(j.size)} people`:""}</div>
     <div class="flags">${kindFlag(j.type)}${frFlag(j.french)}${j.bonus?`<span class="flag bonus">international students ♥</span>`:""}${j.paid===false?`<span class="flag">unpaid</span>`:j.paid===true?`<span class="flag">paid</span>`:""}</div>
+    ${j.note?`<p class="note">${esc(j.note)}</p>`:""}
     ${m?`<div class="match" title="How well this matches your CV for this role"><span>CV match</span><span class="bar"><i style="width:${Math.max(0,Math.min(100,j.match))}%"></i></span><b>${j.match}%</b></div>`
        :`<div class="match none">CV match appears once your CV for this role is in “My CVs”</div>`}
     ${(plus.length||minus.length)?`<details class="fit"><summary>Strengths & gaps</summary>
@@ -370,7 +395,7 @@ function card(j){
     </details>`:""}
     ${tl?`<button class="linkish" data-open-tl="${esc(j.id)}">✱ CV tailored for this vacancy</button>`:""}
     <div class="actions">${url?`<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open listing</a>`:""}${statusSelect(j,"st-"+j.id)}</div>
-    <div class="src">via ${esc(j.source)}${j.addedAt?` · found ${esc(fmtDate(j.addedAt))}`:""}</div>
+    <div class="src"><span class="posted">${esc(postedText(j))}</span> · via ${esc(j.source)}</div>
   </article>`;
 }
 function renderCards(){
